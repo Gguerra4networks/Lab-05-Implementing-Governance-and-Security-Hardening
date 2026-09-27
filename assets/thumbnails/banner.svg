@@ -1,0 +1,42 @@
+<svg viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <defs>
+    <linearGradient id="bbg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#081226"/>
+      <stop offset="100%" stop-color="#0f2d52"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="400" fill="url(#bbg)"/>
+  <rect x="40" y="34" width="150" height="26" rx="13" fill="#0f2740" stroke="#3fa0ff" stroke-width="1.5"/>
+  <text x="115" y="52" font-size="12" fill="#7ec4ff" text-anchor="middle" font-weight="bold">CEA LAB 05</text>
+
+  <text x="40" y="130" font-size="42" font-weight="bold" fill="#ffffff">Implementing Governance</text>
+  <text x="40" y="178" font-size="42" font-weight="bold" fill="#ffffff">and Security Hardening</text>
+  <text x="40" y="212" font-size="17" fill="#8fc1ff">RBAC - Azure Policy - Cost Management - NIST CSF</text>
+
+  <rect x="40" y="250" width="90" height="28" rx="14" fill="#123a5c" stroke="#3fa0ff" stroke-width="1"/>
+  <text x="85" y="269" font-size="11" fill="#bcdcff" text-anchor="middle">RBAC</text>
+  <rect x="140" y="250" width="120" height="28" rx="14" fill="#3a1a1a" stroke="#d64f4f" stroke-width="1"/>
+  <text x="200" y="269" font-size="11" fill="#ffbcbc" text-anchor="middle">Azure Policy</text>
+  <rect x="270" y="250" width="150" height="28" rx="14" fill="#3a2e10" stroke="#d6a92f" stroke-width="1"/>
+  <text x="345" y="269" font-size="11" fill="#ffe8a0" text-anchor="middle">Cost Management</text>
+  <rect x="430" y="250" width="110" height="28" rx="14" fill="#241a3a" stroke="#a97fff" stroke-width="1"/>
+  <text x="485" y="269" font-size="11" fill="#e0d0ff" text-anchor="middle">NIST CSF</text>
+
+  <!-- Terminal window -->
+  <rect x="700" y="90" width="440" height="230" rx="10" fill="#0a1420" stroke="#2a4a6a" stroke-width="1.5"/>
+  <rect x="700" y="90" width="440" height="28" rx="10" fill="#122436"/>
+  <circle cx="718" cy="104" r="5" fill="#ff5f57"/>
+  <circle cx="736" cy="104" r="5" fill="#febc2e"/>
+  <circle cx="754" cy="104" r="5" fill="#28c840"/>
+  <text x="920" y="109" font-size="10" fill="#5a7a9a" text-anchor="middle">az cli</text>
+
+  <text x="716" y="150" font-size="12.5" fill="#4fd67a" font-family="Consolas, monospace">$ az policy assignment create \</text>
+  <text x="716" y="170" font-size="12.5" fill="#e0e6ec" font-family="Consolas, monospace">    --name Restrict-VM-Sizes \</text>
+  <text x="716" y="190" font-size="12.5" fill="#e0e6ec" font-family="Consolas, monospace">    --scope rg-lab05-gov-giovanni</text>
+  <text x="716" y="222" font-size="12.5" fill="#ff8f8f" font-family="Consolas, monospace">Validation failed: Policy check</text>
+  <text x="716" y="242" font-size="12.5" fill="#ff8f8f" font-family="Consolas, monospace">failed - Restrict-VM-Sizes</text>
+  <text x="716" y="274" font-size="12.5" fill="#5db3ff" font-family="Consolas, monospace">$ az role assignment create \</text>
+  <text x="716" y="294" font-size="12.5" fill="#e0e6ec" font-family="Consolas, monospace">    --role Reader</text>
+
+  <text x="40" y="365" font-size="13" fill="#5a7a9a">github.com/Gguerra4networks - Cloud Engineering Accelerator</text>
+</svg>

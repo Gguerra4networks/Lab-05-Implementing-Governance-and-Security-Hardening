@@ -1,0 +1,22 @@
+<svg viewBox="0 0 1200 628" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <defs>
+    <linearGradient id="g3bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a0a2e"/>
+      <stop offset="100%" stop-color="#4a1a7a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="628" fill="url(#g3bg)"/>
+
+  <!-- Lightbulb made of shapes -->
+  <circle cx="300" cy="280" r="90" fill="#ffd966" opacity="0.9"/>
+  <rect x="270" y="355" width="60" height="26" rx="6" fill="#c9a04a"/>
+  <rect x="278" y="385" width="44" height="14" rx="4" fill="#8f7030"/>
+  <line x1="300" y1="130" x2="300" y2="165" stroke="#ffd966" stroke-width="6"/>
+  <line x1="180" y1="200" x2="205" y2="220" stroke="#ffd966" stroke-width="6"/>
+  <line x1="420" y1="200" x2="395" y2="220" stroke="#ffd966" stroke-width="6"/>
+  <line x1="150" y1="300" x2="185" y2="300" stroke="#ffd966" stroke-width="6"/>
+
+  <text x="470" y="250" font-size="46" font-weight="bold" fill="#ffffff">One rule breaks</text>
+  <text x="470" y="308" font-size="46" font-weight="bold" fill="#ffffff">even the Owner.</text>
+  <text x="470" y="360" font-size="20" fill="#d9c0ff">That's the point of a Deny policy.</text>
+</svg>

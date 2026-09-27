@@ -1,0 +1,26 @@
+<svg viewBox="0 0 1200 628" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <defs>
+    <radialGradient id="g1glow" cx="70%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#1a5cae"/>
+      <stop offset="100%" stop-color="#04070f"/>
+    </radialGradient>
+    <pattern id="g1grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M36 0 L0 0 0 36" fill="none" stroke="#1a3a5c" stroke-width="0.5" opacity="0.3"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="628" fill="url(#g1glow)"/>
+  <rect width="1200" height="628" fill="url(#g1grid)"/>
+
+  <circle cx="850" cy="314" r="140" fill="#ff9a3f" opacity="0.25"/>
+  <circle cx="850" cy="314" r="100" fill="#0f2740" stroke="#ff9a3f" stroke-width="3"/>
+  <polygon points="815,260 815,368 905,314" fill="#ff9a3f"/>
+
+  <text x="60" y="230" font-size="52" font-weight="bold" fill="#ffffff">Governance is not</text>
+  <text x="60" y="292" font-size="52" font-weight="bold" fill="#ffffff">a spreadsheet.</text>
+  <text x="60" y="354" font-size="52" font-weight="bold" fill="#5db3ff">It's a lab you can build.</text>
+
+  <text x="60" y="410" font-size="19" fill="#8fc1ff">RBAC - Azure Policy - Cost Management</text>
+
+  <rect x="60" y="450" width="150" height="34" rx="17" fill="#0f2740" stroke="#5db3ff" stroke-width="1.5"/>
+  <text x="135" y="472" font-size="13" fill="#8fc1ff" text-anchor="middle" font-weight="bold">CEA LAB 05</text>
+</svg>

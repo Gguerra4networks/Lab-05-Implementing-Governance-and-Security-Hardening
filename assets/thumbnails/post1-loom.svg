@@ -1,0 +1,27 @@
+<svg viewBox="0 0 1200 628" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <defs>
+    <linearGradient id="p1bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a1e3a"/>
+      <stop offset="100%" stop-color="#0f3a66"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="628" fill="url(#p1bg)"/>
+
+  <rect x="60" y="60" width="170" height="30" rx="15" fill="#0f2740" stroke="#3fa0ff" stroke-width="1.5"/>
+  <text x="145" y="80" font-size="13" fill="#7ec4ff" text-anchor="middle" font-weight="bold">CEA LAB 05</text>
+
+  <text x="60" y="200" font-size="46" font-weight="bold" fill="#ffffff">I gave a junior dev</text>
+  <text x="60" y="256" font-size="46" font-weight="bold" fill="#ffffff">access, then made</text>
+  <text x="60" y="312" font-size="46" font-weight="bold" fill="#ff9a3f">sure they couldn't</text>
+  <text x="60" y="368" font-size="46" font-weight="bold" fill="#ff9a3f">break anything.</text>
+
+  <text x="60" y="420" font-size="18" fill="#bcdcff">RBAC + Azure Policy + budget alerts, mapped to NIST</text>
+
+  <rect x="60" y="470" width="190" height="46" rx="23" fill="#ff9a3f"/>
+  <text x="155" y="499" font-size="16" fill="#0a1e3a" text-anchor="middle" font-weight="bold">Watch Now</text>
+
+  <!-- Play button -->
+  <circle cx="990" cy="314" r="130" fill="#0f2740" opacity="0.6"/>
+  <circle cx="990" cy="314" r="95" fill="#123a5c" stroke="#3fa0ff" stroke-width="2"/>
+  <polygon points="960,265 960,365 1045,314" fill="#ffffff"/>
+</svg>

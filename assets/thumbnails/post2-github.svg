@@ -1,0 +1,24 @@
+<svg viewBox="0 0 1200 628" xmlns="http://www.w3.org/2000/svg" font-family="Arial, sans-serif">
+  <rect width="1200" height="628" fill="#04140a"/>
+  <rect x="0" y="0" width="1200" height="60" fill="#0a2415"/>
+  <circle cx="34" cy="30" r="7" fill="#ff5f57"/>
+  <circle cx="58" cy="30" r="7" fill="#febc2e"/>
+  <circle cx="82" cy="30" r="7" fill="#28c840"/>
+  <text x="600" y="36" font-size="14" fill="#4a8a5a" text-anchor="middle">bash - rg-lab05-gov-giovanni</text>
+
+  <text x="40" y="120" font-size="20" fill="#4fd67a" font-family="Consolas, monospace">$ git status</text>
+  <text x="40" y="155" font-size="18" fill="#8fffb0" font-family="Consolas, monospace">On branch main</text>
+  <text x="40" y="185" font-size="18" fill="#8fffb0" font-family="Consolas, monospace">nothing to commit, working tree clean</text>
+
+  <text x="40" y="235" font-size="20" fill="#4fd67a" font-family="Consolas, monospace">$ az role assignment list --output table</text>
+  <text x="40" y="270" font-size="16" fill="#c8ecd4" font-family="Consolas, monospace">Junior Developer   Reader   rg-lab05-gov-giovanni</text>
+
+  <text x="40" y="320" font-size="20" fill="#4fd67a" font-family="Consolas, monospace">$ az policy assignment list --output table</text>
+  <text x="40" y="355" font-size="16" fill="#c8ecd4" font-family="Consolas, monospace">Restrict-VM-Sizes   Deny   rg-lab05-gov-giovanni</text>
+
+  <text x="40" y="440" font-size="38" font-weight="bold" fill="#ffffff">The repo is live.</text>
+  <text x="40" y="486" font-size="38" font-weight="bold" fill="#4fd67a">Clone it, break it, fix it.</text>
+
+  <rect x="40" y="530" width="240" height="52" rx="26" fill="#1a8f4a"/>
+  <text x="160" y="563" font-size="17" fill="#ffffff" text-anchor="middle" font-weight="bold">Star the repo</text>
+</svg>
