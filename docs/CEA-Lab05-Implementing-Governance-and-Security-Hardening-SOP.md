@@ -9,17 +9,49 @@ This SOP walks through building three governance controls in Azure: RBAC, Azure 
 
 You will work mostly in the Azure portal for this lab, with the CLI available as a second path for Phases 1, 2, and 4. Have an incognito or private browser window ready before Phase 3 - you will use it to log in as the simulated Junior Developer without logging out of your Admin account.
 
+**NOTE:** This SOP uses angle-bracket placeholders like `<yourtenant>` and `<sub-id>` in a few CLI commands. Those are not literal text - swap in your real value before you run the command.
+- Tenant domain: Azure Portal > **Microsoft Entra ID** > **Overview** > "Primary domain" (or from the CLI: `az ad signed-in-user show --query userPrincipalName -o tsv`, then take the part after the `@`).
+- Subscription ID: `az account show --query id -o tsv`, or Portal > **Subscriptions**.
+
+**FIX:** On Windows, `az` runs through a `.cmd` wrapper, so `cmd.exe` reads `<` and `>` as file-redirection symbols even inside quotes, before the command ever reaches Azure. A left-in `<yourtenant>` placeholder does not just fail to resolve - it breaks the whole command with `The system cannot find the file specified.` That error means a placeholder was not swapped out, not that the command itself is wrong.
+
 ---
 
-## Step 0 - Save Your Variables First
+## Step 0 - Sign In and Save Your Variables
 
-**PATH:** Open a PowerShell terminal in your lab folder before doing anything else.
+**PATH:** Open a PowerShell terminal (or the VS Code integrated terminal) and `cd` into the folder where you cloned this repo before doing anything else.
+
+```powershell
+cd "<path to your cloned repo folder>"
+```
+
+Sign in with the device code flow instead of the interactive browser popup:
+
+```powershell
+az login --use-device-code
+```
+
+Open the URL it prints (microsoft.com/devicelogin) in any browser, enter the code, and complete sign-in with your admin account. Then confirm you landed in the right tenant and subscription:
+
+```powershell
+az account show --output table
+```
+
+If it shows the wrong subscription, pin the right one:
+
+```powershell
+az account set --subscription "<name-or-id>"
+```
+
+Now load the lab variables:
 
 ```powershell
 . .\set-vars.ps1
 ```
 
 **NOTE:** This prints each variable back to you so you can confirm it loaded. Every command below that references a resource group, user name, or policy name uses these variables instead of typed-out strings, so a typo only needs to be fixed in one place.
+
+**FIX:** If PowerShell blocks this with "is not digitally signed," that is the execution policy, not a broken script. Run `Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force` in that same terminal, then re-run the `set-vars.ps1` line. If it still blocks, run `Unblock-File -Path .\set-vars.ps1` first.
 
 ---
 
@@ -60,6 +92,8 @@ Expected: the resource group listed with `ProvisioningState: Succeeded`.
 5. Click **Review + create**, then **Create**.
 
 **SECURITY:** Collect the password interactively rather than typing it into a script or committing it anywhere.
+
+**NOTE:** Replace `<yourtenant>` below with your real tenant domain (see the placeholder note under "Before You Open VS Code") before running this. Every other `<yourtenant>` in this SOP needs the same swap.
 
 ```powershell
 $pw = Read-Host -AsSecureString "Set a password for the junior dev account"
@@ -199,6 +233,7 @@ Navigate to `rg-lab05-gov-giovanni` > **Budgets** > `Monthly-Lab-Budget` and con
 
 | Issue | Root cause | Resolution |
 |---|---|---|
+| `set-vars.ps1` will not run: "is not digitally signed" | PowerShell execution policy blocks unsigned scripts by default | Run `Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force` in the same terminal, then re-run the dot-source. If it persists, run `Unblock-File -Path .\set-vars.ps1` first. |
 | Junior Developer can still create resources | Role assigned at the subscription level instead of the resource group | Check `rg-lab05-gov-giovanni` > Access control (IAM) > Role assignments. Re-add the Reader assignment at the resource group level if missing there. |
 | Policy is not blocking the VM (validation passes for D2s_v3) | Policy assignment has not finished propagating (10-30 minutes) | Wait 15 minutes and retry. If still not blocking after 30 minutes, confirm `Restrict-VM-Sizes` is listed in Policy > Assignments scoped to the resource group. |
 | Cannot find Budgets in the resource group's left menu | Cost Management is not visible on the left panel for all subscription types | Go to Cost Management + Billing in the main search bar and navigate to Budgets from there. |
