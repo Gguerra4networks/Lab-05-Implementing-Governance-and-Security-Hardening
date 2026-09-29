@@ -123,7 +123,7 @@ az ad user show --id "$($env:LAB_JUNIOR_UPN_NAME)@<yourtenant>.onmicrosoft.com" 
 az role assignment create `
   --assignee "$($env:LAB_JUNIOR_UPN_NAME)@<yourtenant>.onmicrosoft.com" `
   --role "Reader" `
-  --resource-group $env:LAB_RESOURCE_GROUP
+  --scope "/subscriptions/$(az account show --query id -o tsv)/resourceGroups/$($env:LAB_RESOURCE_GROUP)"
 ```
 
 **Verify:**
