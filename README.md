@@ -122,7 +122,26 @@ Expected: the Junior Developer listed with Reader at the resource-group scope, a
 
 ## Screenshots
 
-_Screenshots from this build were not provided at the time this repo package was assembled. Recommended slots to fill in as proof: the Entra ID user list showing the Junior Developer account, the IAM role assignment showing Reader scoped to the resource group, the incognito "AuthorizationFailed" error, the policy validation failure on `Standard_D2s_v3`, and the budget configuration screen showing both alert thresholds._
+**Resource group and RBAC stood up clean.**
+![Resource group created](assets/screenshots/02-resource-group-created.png)
+![Reader role assigned to the Junior Developer, scoped to the resource group](assets/screenshots/03-reader-role-assigned.png)
+
+**MFA enforced on first sign-in for the Junior Developer account - Protect function in action.**
+![Junior Developer prompted to set up MFA](assets/screenshots/04-junior-dev-mfa-verification.png)
+
+**Policy proof: the Deny effect actually blocks an out-of-policy VM size.**
+![Validation failed creating a VM with Standard_D2s_v3](assets/screenshots/05-vm-policy-blocked-d2sv3.png)
+
+**Budget creation failed while signed in as the Reader-only test account, then succeeded once switched to the Admin account, with both alert thresholds confirmed.**
+![Cannot create budget - authorization error](assets/screenshots/06-budget-auth-error-wrong-account.png)
+![Monthly-Lab-Budget created successfully under the Admin account](assets/screenshots/07-budget-created-admin-account.png)
+![Budget alert conditions confirmed: Actual 80%/$40 and Forecasted 100%/$50](assets/screenshots/08-budget-alerts-confirmed.png)
+
+**Troubleshooting proof: PowerShell execution policy diagnosis for the `set-vars.ps1` signing error.**
+![Get-ExecutionPolicy -List showing LocalMachine as RemoteSigned](assets/screenshots/01-execution-policy-remotesigned.png)
+
+**Clean teardown confirmed - Recover function.**
+![Resource group deleted, ResourceGroupNotFound confirms clean-up](assets/screenshots/09-cleanup-resource-group-deleted.png)
 
 ## Project Structure
 
@@ -134,7 +153,7 @@ Lab-05-Implementing-Governance-and-Security-Hardening/
 ├── assets/
 │   ├── architecture.svg               Animated architecture diagram
 │   ├── architecture.png               Static fallback
-│   ├── screenshots/                   Build proof screenshots (add your own)
+│   ├── screenshots/                   Build proof screenshots (01-09, numbered by phase)
 │   └── thumbnails/
 │       ├── banner.svg                 Repo hero image
 │       ├── post1-loom.svg             LinkedIn Post 1 thumbnail
