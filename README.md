@@ -67,7 +67,14 @@ Budget scoped to $50/month against the lab resource group; the lab itself only p
 
 ## Quick Start
 
+**NOTE:** Swap the `<yourtenant>` and `<sub-id>` placeholders below for your real values before running (see the full SOP's "Before You Open VS Code" section for where to find them). On Windows, a literal `<...>` left in an `az` command breaks it with `The system cannot find the file specified`, since `cmd.exe` reads `<`/`>` as redirection even inside quotes.
+
 ```powershell
+# 0. Go to your cloned repo folder, then sign in to Azure (device code, no browser popup)
+cd "<path to your cloned repo folder>"
+az login --use-device-code
+az account show --output table
+
 # 1. Load lab variables
 . .\set-vars.ps1
 
