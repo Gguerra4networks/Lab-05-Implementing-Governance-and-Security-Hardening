@@ -90,7 +90,7 @@ Remove-Variable pw
 
 # 4. Assign Reader, scoped to the resource group
 az role assignment create --assignee "$($env:LAB_JUNIOR_UPN_NAME)@<yourtenant>.onmicrosoft.com" `
-  --role "Reader" 
+  --role "Reader" --scope "/subscriptions/$(az account show --query id -o tsv)/resourceGroups/$($env:LAB_RESOURCE_GROUP)" 
 
 # 5. Assign the VM-size policy (Deny effect)
 az policy assignment create --name $env:LAB_POLICY_NAME `
