@@ -2,112 +2,96 @@
 
 **Posting notes:**
 - Space these 2-3 days apart, in order: Loom, GitHub, Learned, Different.
-- LinkedIn does not accept SVG. Use the PNG copies linked under each post.
-- Consider adding a real screenshot as a second image on Posts 3 and 4 (the policy validation error and the budget alert screen are strong choices).
-- Each post below lists its detailed thumbnail and its generic scroll-stopping alternate. Try swapping between them if engagement is flat.
+- LinkedIn does not accept SVG. Use the PNG copies in `assets/thumbnails/png/` and `assets/thumbnails/generic/png/`.
+- Suggested second image for Posts 3 and 4: a real screenshot from `assets/screenshots/` (see notes under each post).
+- Loom link is a placeholder below until the walkthrough is recorded.
 
 ---
 
 ## Post 1 - Loom Video
 
-**Thumbnail:** `assets/thumbnails/png/post1-loom.png`
-**Generic alternate:** `assets/thumbnails/generic/png/g1-watch.png`
+**Thumbnail:** `assets/thumbnails/png/post1-loom.png` (or generic alternate `assets/thumbnails/generic/png/g1-watch.png`)
 
-I gave a junior developer full access to my Azure environment, then spent the rest of the lab making sure they couldn't actually do anything with it.
+A resource group with zero guardrails is one bad click away from a five figure Azure bill.
 
-That is not a contradiction. It is governance.
+That is the problem Lab 05 of my Cloud Engineering Accelerator track solves. I built three governance controls into one resource group: a Reader-only role for a simulated junior developer, an Azure Policy that blocks expensive VM sizes for every account including my own Owner login, and a cost budget with both an actual and a forecasted alert.
 
-For Lab 05 of the Cloud Engineering Accelerator, I built three controls in one resource group: a Reader role that lets a simulated junior dev see everything but touch nothing, an Azure Policy that blocks expensive VM sizes for every account including the Owner, and a cost budget with two different types of alerts.
+The part that made it real: the policy had to hold even when I tried to bypass it myself. Governance you can turn off by elevating your own permissions is not governance. I proved it by trying to deploy a Standard_D2s_v3 VM as the Owner account and watching the same Deny effect block it that blocked the junior dev.
 
-Then I tested every single one. I logged in as the junior dev in an incognito window and tried to create a storage account. Denied. I tried to deploy an oversized VM. Blocked before it ever got created. I confirmed the budget would flag spend at 80% actual and again if it was forecasted to blow past the limit.
+I recorded the full build, including the parts that did not go right the first time.
 
-Untested governance is just a policy document nobody follows. This lab is the difference between writing the rule and proving the rule holds.
+Watch the walkthrough here: [LOOM_URL]
 
-The walkthrough covers all three controls end to end, including the two failure tests that actually prove they work.
+If you are building toward cloud security or DevOps roles, this is the kind of hands on control that shows up in real interviews.
 
-Watch the full breakdown here: [LOOM_URL]
-
-#Azure #CloudSecurity #CloudGovernance #RBAC #AzurePolicy #NIST #CloudEngineering #CareerChange #VeteranInTech #LearnInPublic
+#Azure #CloudSecurity #AzurePolicy #RBAC #CostManagement #DevOps #CloudEngineering #NIST #CareerChange #Veterans
 
 ---
 
 ## Post 2 - GitHub Repo
 
-**Thumbnail:** `assets/thumbnails/png/post2-github.png`
-**Generic alternate:** `assets/thumbnails/generic/png/g2-github.png`
+**Thumbnail:** `assets/thumbnails/png/post2-github.png` (or generic alternate `assets/thumbnails/generic/png/g2-github.png`)
 
-The Lab 05 repo is live: a full governance build you can clone and run in your own Azure subscription.
+Repo is live for Lab 05 of my Cloud Engineering Accelerator series: Implementing Governance and Security Hardening in Azure.
 
-Inside:
+What's inside:
+- Full step-by-step SOP, portal clicks and Azure CLI commands side by side
+- An Entra ID user provisioned with Reader-only access, scoped to a single resource group
+- An Azure Policy with a Deny effect restricting VM sizes to the approved SKU list, enforced against every account in the resource group
+- A Cost Management budget with an actual alert at 80 percent and a forecasted alert at 100 percent
+- Nine build screenshots, including the two errors I actually hit and had to troubleshoot live
+- Every control mapped to a NIST Cybersecurity Framework function
 
-- A Reader role assignment scoped to one resource group, proven with a real AuthorizationFailed test
-- An Azure Policy with a Deny effect that blocks non-approved VM sizes for every account, including Owner
-- A cost budget with an Actual alert (fires after spend happens) and a Forecasted alert (fires on projected trend)
-- The full SOP with portal clicks and CLI commands for every phase
-- A troubleshooting table built from real issues in this build, not hypothetical ones
+Total cost to build this: close to zero. The lab only stands up a resource group, a policy assignment, and a budget. Time investment: about an hour.
 
-Cost to run it: close to zero if you stop before completing a VM deployment. Time: 60 to 75 minutes.
+If you are studying for AZ-500 or just want to see governance controls that actually get enforced instead of just documented, the SOP walks through the whole build including the troubleshooting.
 
-Every phase ends with a verification command, because a control you have not tested is a control you cannot trust in an interview or in production.
+Repo: https://github.com/Gguerra4networks/Lab-05-Implementing-Governance-and-Security-Hardening
 
-Part of my ongoing Cloud Engineering Accelerator portfolio as I move from 30 years in RF and telecom field engineering into cloud security.
+Star it if it's useful. More labs coming in this series.
 
-Repo link: [REPO_URL]
-
-If this helps your own Azure governance learning, a star helps other people find it.
-
-#Azure #CloudGovernance #AzurePolicy #RBAC #GitHub #CloudSecurity #NIST #InfrastructureAsCode #CareerChange #OpenSource
+#Azure #AzurePolicy #RBAC #CloudSecurity #GitHub #AZ500 #CloudEngineering #InfrastructureAsCode #CareerChange #Veterans
 
 ---
 
 ## Post 3 - One Thing I Learned
 
-**Thumbnail:** `assets/thumbnails/png/post3-learned.png`
-**Generic alternate:** `assets/thumbnails/generic/png/g3-learned.png`
+**Thumbnail:** `assets/thumbnails/png/post3-learned.png` (or generic alternate `assets/thumbnails/generic/png/g3-learned.png`)
+**Suggested second image:** `assets/screenshots/05-vm-policy-blocked-d2sv3.png`
 
-The exact error was: "Validation failed - Policy check failed: Restrict-VM-Sizes." I hit it from my own Owner account.
+Not every red error in Azure means your policy failed.
 
-That surprised me. I have full Owner rights on this subscription. I can create, modify, and delete anything. I assumed that meant I could override any rule I had set for other people.
+While testing my VM-size Deny policy, I tried deploying a Standard_B1s VM through the portal and the size showed up grayed out as "Size not available." My first assumption was the policy itself, or a Generation 1 versus Generation 2 image mismatch. I spent real time chasing both.
 
-I was wrong, and that is the entire point of Azure Policy.
+The actual answer came from the CLI. Running the deployment with `az vm create` returned a `SkuNotAvailable` error, not `RequestDisallowedByPolicy`. Those are two completely different failure modes in Azure. `RequestDisallowedByPolicy` means your governance control did its job and blocked the request. `SkuNotAvailable` means the region simply does not have capacity for that VM size right now, which has nothing to do with policy at all.
 
-RBAC controls who can act. With Owner rights you can do almost anything, and grant yourself more access if you want. Azure Policy is different. A Deny effect applies to every account in scope, no exceptions, including the one that created the policy. There is no elevated-permissions escape hatch.
+Once I saw the actual error code instead of trusting the portal's grayed-out UI, the whole troubleshooting path got a lot shorter.
 
-If governance could be bypassed by whoever has the most access, it would not be governance, it would be a suggestion. Policy exists as a separate system from RBAC so some rules hold regardless of who is asking.
+Lesson: when Azure blocks something, read the actual error code before you start debugging your policy. The portal UI does not always tell you which layer failed.
 
-The sentence that shows you actually understand the tool: RBAC is about identity, Policy is about configuration, and a mature governance model uses both together.
+Have you ever chased a policy bug that turned out to be a capacity issue?
 
-Has anyone else been caught off guard by a Deny policy blocking their own admin account? What was the fix?
-
-#Azure #AzurePolicy #CloudGovernance #RBAC #CloudSecurity #NIST #LeastPrivilege #CloudEngineering #TechLearning #CareerChange
+#Azure #AzurePolicy #Troubleshooting #CloudSecurity #AzureCLI #DevOps #CloudEngineering #LessonsLearned #CareerChange #Veterans
 
 ---
 
 ## Post 4 - What I'd Do Differently
 
-**Thumbnail:** `assets/thumbnails/png/post4-different.png`
-**Generic alternate:** `assets/thumbnails/generic/png/g4-different.png`
+**Thumbnail:** `assets/thumbnails/png/post4-different.png` (or generic alternate `assets/thumbnails/generic/png/g4-different.png`)
+**Suggested second image:** `assets/screenshots/06-budget-auth-error-wrong-account.png`
 
-Next time I assign an Azure Policy, I am checking that it actually propagated before running the test that depends on it.
+I locked myself out of my own budget and didn't realize it for ten minutes.
 
-Policy assignments do not take effect instantly. The guide calls out a 10 to 30 minute propagation window, and it is easy to read that and test anyway because the assignment blade says "succeeded." Succeeded means the assignment was created, not that every evaluation point has picked it up yet.
+Setting up the Cost Management budget, I kept hitting: "Cannot create budget - The client does not have authorization to perform action." My Owner account has full rights on the subscription, so I started checking role assignments, assuming something was actually broken.
 
-The fix, a 10 second check before the deployment test:
+The real problem: the portal was still signed in as the Reader-only junior developer test account from an earlier phase. Reader cannot write a budget. My Owner account was never in the picture.
 
-```
-az policy assignment list --query "[?name=='Restrict-VM-Sizes']" --output table
-```
+**Before:** troubleshooting permissions on the wrong identity.
+**Fix:** click the account avatar top-right, confirm the signed-in email before anything else.
+**Verify:** `az account show --query user.name -o tsv` matches your admin UPN.
 
-If it is listed at the right scope, wait out the remaining window, then test. A deployment that passes when it should have been blocked is usually a timing issue, not a bad policy definition.
+Next time: check the signed-in identity first, every time an authorization error shows up, before assuming a role assignment is missing.
 
-Verify command once propagation is done:
+What's the dumbest "permissions bug" you've chased that turned out to be the wrong account?
 
-```
-az vm create --resource-group rg-lab05-gov-giovanni --size Standard_D2s_v3 ...
-```
-
-Expected: a validation failure naming the policy. Get that instead of an unexpected success and the control is working exactly as designed.
-
-What is your go-to move when an Azure control seems to be silently not working: wait it out, or start debugging the config?
-
-#Azure #AzurePolicy #CloudGovernance #DevOps #CloudSecurity #Troubleshooting #NIST #CloudEngineering #LessonsLearned #CareerChange
+#Azure #CostManagement #CloudSecurity #AzureCLI #RBAC #DevOps #Troubleshooting #CloudEngineering #CareerChange #Veterans
