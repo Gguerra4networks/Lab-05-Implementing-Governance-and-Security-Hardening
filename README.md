@@ -198,6 +198,35 @@ Full post text: [linkedin/CEA-Lab05-LinkedIn-Posts.md](linkedin/CEA-Lab05-Linked
 | Lab 04 | Infrastructure as Code with Terraform | TBD |
 | **Lab 05** | **Implementing Governance and Security Hardening** | **This repo** |
 
+## Reference: Cost Management Concepts
+
+Kept from the original SOP for quick lookup.
+
+| Cost Management concept | What it means in plain English |
+|---|---|
+| Budget | A spending limit you define for a scope (subscription, resource group, or management group) over a time period (usually a billing month). When actual or projected spend crosses a threshold, alerts fire. |
+| Budget scope | The boundary the budget watches. In this lab the budget is scoped to the resource group. In a real environment you might have a budget for the entire subscription, separate budgets per team or project, and departmental budgets rolled up to a management group. |
+| Reset period | How often the budget resets. Billing month means it resets on the first of each month, so you start fresh every month against the same limit. |
+| Actual alert | Fires when money has already been spent and the cumulative total crosses the threshold. Example: 80% actual means you have already spent $40 of your $50 budget this month. |
+| Forecasted alert | Fires when Azure projects that you will exceed the budget by the end of the period, based on your current spending rate. Example: you are on day 10 of the month and already at $35. Azure projects you will spend $105 by month end and fires a 100% forecasted alert early. |
+| Action Group | An optional but powerful addition. Instead of just emailing you, an action group can send an SMS, trigger a webhook, call a Logic App, or run an Azure Function that automatically shuts down non-critical resources. This lab uses email only. |
+| Cost Analysis | A separate view that breaks down spend by resource type, resource group, tag, or time period. This is how you investigate after an alert fires: you go to Cost Analysis to find what is driving the spend. Out of scope for this lab, but a critical tool to know exists. |
+
+**Why this matters from a NIST perspective:** cost anomalies are security signals. If your Azure spend triples in one day and you did not deploy anything new, that is a Detect event. It could be a misconfigured auto-scaling group, a runaway job, or a compromised account spinning up resources. Budget alerts give you the earliest possible warning.
+
+## Reference: Lab Variables and Naming Convention
+
+Replace `[yourname]` with your actual first name, lowercase, no spaces. Use these names exactly throughout the lab so your resources match the instructions.
+
+| Variable | Value to use |
+|---|---|
+| Resource Group | `rg-lab05-gov-[yourname]` |
+| Test User principal name | `junior-dev-[yourname]@[yourtenant].onmicrosoft.com` |
+| Test User display name | `Junior Developer` |
+| Policy Assignment Name | `Restrict-VM-Sizes` |
+| Budget Name | `Monthly-Lab-Budget` |
+| Budget Amount | `$50` |
+
 ## Author
 
 Giovanni Guerra - Field Engineer pivoting into cloud security and federal IT.
