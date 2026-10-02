@@ -3,7 +3,7 @@
 
 ![Lab Banner](assets/thumbnails/banner.svg)
 
-**[Watch the walkthrough on Loom](https://www.loom.com/share/82986818a5974db2938ba4112df5047e)**
+**##🎬 Watch Me Build This Lab! [Watch the walkthrough on Loom](https://www.loom.com/share/82986818a5974db2938ba4112df5047e)**
 
 ---
 
