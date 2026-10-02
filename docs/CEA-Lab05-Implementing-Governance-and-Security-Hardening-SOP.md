@@ -235,6 +235,32 @@ Expected: `Restrict-VM-Sizes` listed, scoped to `rg-lab05-gov-giovanni`.
 
 5. Repeat with `Standard_B1s` instead. This time validation should pass, you do not need to complete the deployment, just confirm it clears validation.
 
+**CLI path:**
+
+**What this does:** asks Azure to check two VM requests without building either one. The first uses a size the policy blocks. The second uses a size the policy allows.
+
+**Why:** it saves you from clicking through the portal and hunting for `Standard_D2s_v3` in the long size list. The `--validate` flag runs the same check the portal runs when it shows the red or green banner. Nothing gets created, so nothing costs money.
+
+**Before you run it:** you are signed in with your Admin account, you loaded the lab variables with `. .\set-vars.ps1` in this VS Code terminal, and at least 10 to 15 minutes have passed since you assigned the policy in Phase 4. If you test too early, the blocked size may wrongly pass.
+
+**Test 1, the blocked size:**
+```powershell
+az vm create --validate --resource-group $env:LAB_RESOURCE_GROUP --name vm-policy-test --image Ubuntu2204 --size Standard_D2s_v3 --admin-username azureuser --generate-ssh-keys
+```
+**What this command does:** asks Azure if it would accept an Ubuntu VM that uses the `Standard_D2s_v3` size.
+**Why:** that size is not on the allowed list, so this is the "try to break the rule" test.
+**Expected:** an error that mentions `RequestDisallowedByPolicy` and `Restrict-VM-Sizes`. That is the command line version of the red "Validation failed" banner.
+
+**Test 2, the allowed size:**
+```powershell
+az vm create --validate --resource-group $env:LAB_RESOURCE_GROUP --name vm-policy-test --image Ubuntu2204 --size Standard_B1s --admin-username azureuser --generate-ssh-keys
+```
+**What this command does:** sends the exact same request, with only the size changed to `Standard_B1s`.
+**Why:** a good rule blocks only what it should. If this one passes while Test 1 fails, the policy is doing its job.
+**Expected:** no policy error, just a short success result.
+
+**NOTE:** `--generate-ssh-keys` may create a key pair in the `.ssh` folder of your user profile if you do not already have one. That is normal. Never copy those key files into the repo.
+
 **Verify:** both directions confirmed, `Standard_D2s_v3` blocked, `Standard_B1s` allowed.
 
 **What this actually means:**
