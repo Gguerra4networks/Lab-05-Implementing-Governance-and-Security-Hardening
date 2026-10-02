@@ -97,6 +97,14 @@ az policy assignment create --name $env:LAB_POLICY_NAME `
   --scope "/subscriptions/<sub-id>/resourceGroups/$($env:LAB_RESOURCE_GROUP)" `
   --policy "cccc23c7-8427-4f53-ad12-b6a63eb452b3" `
   --params "{\"listOfAllowedSKUs\":{\"value\":[\"Standard_B1s\",\"Standard_B1ms\"]}}"
+
+# 6. Test the policy (wait 10-15 minutes after step 5 so the policy has time to turn on)
+# What: ask Azure to check two VM requests without building either one. Why: this proves the rule
+# blocks bad sizes and allows good ones, and --validate means no VM is created and nothing costs money.
+# Blocked size: expect an error naming RequestDisallowedByPolicy and Restrict-VM-Sizes
+az vm create --validate --resource-group $env:LAB_RESOURCE_GROUP --name vm-policy-test --image Ubuntu2204 --size Standard_D2s_v3 --admin-username azureuser --generate-ssh-keys
+# Allowed size: expect no policy error (same request, only the size changed)
+az vm create --validate --resource-group $env:LAB_RESOURCE_GROUP --name vm-policy-test --image Ubuntu2204 --size Standard_B1s --admin-username azureuser --generate-ssh-keys
 ```
 
 Portal steps for every phase (including the budget, which is portal-only in this lab) are in the [full SOP](docs/CEA-Lab05-Implementing-Governance-and-Security-Hardening-SOP.md).
@@ -118,7 +126,7 @@ az role assignment list --resource-group $env:LAB_RESOURCE_GROUP --output table
 az policy assignment list --output table
 ```
 
-Expected: the Junior Developer listed with Reader at the resource-group scope, and `Restrict-VM-Sizes` listed as a Deny assignment scoped to the same group. In the portal, a VM creation attempt with `Standard_D2s_v3` returns a red "Validation failed" banner naming `Restrict-VM-Sizes`; the same attempt with `Standard_B1s` passes validation.
+Expected: the Junior Developer listed with Reader at the resource-group scope, and `Restrict-VM-Sizes` listed as a Deny assignment scoped to the same group. In the portal, a VM creation attempt with `Standard_D2s_v3` returns a red "Validation failed" banner naming `Restrict-VM-Sizes`; the same attempt with `Standard_B1s` passes validation. The CLI test in Quick Start step 6 gives the same result: `Standard_D2s_v3` fails with `RequestDisallowedByPolicy`, and `Standard_B1s` passes.
 
 ## Screenshots
 
